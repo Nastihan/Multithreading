@@ -18,5 +18,13 @@
     <ClCompile Include="MultithreadingC++.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NastihanTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NastihanTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

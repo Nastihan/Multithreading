@@ -130,6 +130,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MultithreadingC++.cpp" />
+    <ClCompile Include="NastihanTimer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NastihanTimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
