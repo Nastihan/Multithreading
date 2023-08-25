@@ -10,13 +10,14 @@
 
 constexpr size_t DATASET_SIZE = 5000000;
 
-void Process(std::array<int, DATASET_SIZE>& set)
+void Process(std::array<int, DATASET_SIZE>& set, int &sum)
 {
     for (auto x : set)
     {
         constexpr auto limit = (double)std::numeric_limits<int>::max();
         const auto y = (double)x / limit;
-        set[0] += int(std::sin(std::cos(y)) * limit);
+        //set[0] += int(std::sin(std::cos(y)) * limit);
+        sum += int(std::sin(std::cos(y)) * limit);
     }
 }
 
@@ -30,11 +31,13 @@ int main()
     {
         std::ranges::generate(set, rne);
     }
+    
+    int sum = 0;
 
     NastihanTimer timer;
     for (auto& set : datasets)
     {
-        workers.push_back(std::thread(Process, std::ref(set)));
+        workers.push_back(std::thread(Process, std::ref(set), std::ref(sum)));
     }
     for (auto& w : workers)
     {
@@ -45,6 +48,7 @@ int main()
 
 
     std::cout << "Processing took: " << t << " seconds\n";
+    std::cout << "The accumulated result is: " << sum << "\n";
     return 0;
 }
 
