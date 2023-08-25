@@ -10,14 +10,16 @@
 
 constexpr size_t DATASET_SIZE = 5000000;
 
-void Process(std::array<int, DATASET_SIZE>& set, int &sum)
+void Process(std::array<int, DATASET_SIZE>& set, int &sum, std::mutex& mtx)
 {
     for (auto x : set)
     {
+        mtx.lock();
         constexpr auto limit = (double)std::numeric_limits<int>::max();
         const auto y = (double)x / limit;
-        //set[0] += int(std::sin(std::cos(y)) * limit);
         sum += int(std::sin(std::cos(y)) * limit);
+        mtx.unlock();
+
     }
 }
 
@@ -33,11 +35,12 @@ int main()
     }
     
     int sum = 0;
+    std::mutex mtx;
 
     NastihanTimer timer;
     for (auto& set : datasets)
     {
-        workers.push_back(std::thread(Process, std::ref(set), std::ref(sum)));
+        workers.push_back(std::thread(Process, std::ref(set), std::ref(sum), std::ref(mtx)));
     }
     for (auto& w : workers)
     {
